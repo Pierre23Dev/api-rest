@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body{
+    text-align: center;
+    color: aliceblue;
+    background-color: #222;
+    width: 98%;
+    height: 100vh;
+  }
+  #main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  article{
+    padding: 10px;
+  }
+  figure{
+    width: 50%;
+    margin: 0 auto;
+  }
+  img{
+    height: auto;
+    width:100%;
+    object-fit: contain;
+  }
+  button{
+    padding: 5px 10px;
+    background-color: white;
+    color: black;
+    font-size: 1.5rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+</style>
+<script type="module">
+  fetch('http://localhost:1234/movies')
+  .then((res)=>res.json())
+  .then(data=>{
+    const html = data.map((item)=>{
+      return `
+      <article class='articulo' data-id=${item.id}>
+        <h1>${item.title}</h1>
+        <p>Year: ${item.year}</p>
+        <figure>
+          <img src="${item.poster}" alt="${item.title}">
+        </figure>
+        <button>Eliminar</button>
+      </article>
+    `
+    }).join("")
+
+    document.getElementById('main').innerHTML=html
+
+    document.addEventListener('click',(e)=>{
+      if(e.target.matches('button')){
+        const article = e.target.closest('article')
+        const id = article.dataset.id
+
+        fetch(`http://localhost:1234/movies/${id}`,{
+          method:'DELETE'
+        })
+        .then((res)=>res.json())
+        .then(data=>{
+          if(data.success == true){
+            return article.remove()
+          }
+        })
+      }
+    })    
+  })
+</script>
+<body>
+  <h1>API API PI</h1>
+  <main id="main"></main>
+</body>
+</html>
