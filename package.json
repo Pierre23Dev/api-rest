@@ -1,0 +1,21 @@
+{
+  "name": "clase-3",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-1": "node --watch ./clase-3.1/aapp.js",
+    "dev-2": "node --watch ./clase-4-cors/app.js",
+    "dev-3": "node --watch ./repaso-clase-4/app.js",
+    "start": "node ./app.js",
+    "build": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "4.21.2",
+    "zod": "4.0.10"
+  }
+}
