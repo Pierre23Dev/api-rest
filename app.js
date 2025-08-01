@@ -10,6 +10,11 @@ app.use(express.json())
 
 const PORT = process.env.PORT ?? 1234
 
+//obteniendo una variable de entorno para saber si estoy en produccion
+const isProduction = process.env.NODE_ENV === 'production'
+
+const BASE_URL = isProduction ? 'https://api-rest-mlnn.onrender.com' : 'http://localhost:1234'
+
 const ORIGENES_ACEPTADOS = [
   'https://api-rest-mlnn.onrender.com',
   'http://127.0.0.1:5500'
@@ -127,7 +132,7 @@ app.options('/movies/:id', (req, res) => {
 
 // manejo de rutas no especificadas
 app.use('*', (req, res) => {
-  res.redirect('http://localhost:1234/movies')
+  res.redirect(`${BASE_URL}/movies`)
 })
 
 app.listen(PORT, () => {
