@@ -132,7 +132,7 @@ app.options('/movies/:id', (req, res) => {
 
 // manejo de rutas no especificadas
 app.use('*', (req, res) => {
-  res.redirect(`${BASE_URL}/movies`)
+  res.status(408).json({ error: 'ruta no encontrada' })
 })
 
 app.listen(PORT, () => {
