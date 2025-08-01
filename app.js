@@ -10,8 +10,17 @@ app.use(express.json())
 
 const PORT = process.env.PORT ?? 1234
 
+const ORIGENES_ACEPTADOS = [
+  'https://api-rest-mlnn.onrender.com',
+  'http://127.0.0.1:5500'
+]
+
 app.get('/movies', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500')
+  const { origin } = req
+  const origen_aceptado = ORIGENES_ACEPTADOS.matches((e) => e === origin)
+  if (origen_aceptado) {
+    res.setHeader('Access-Control-Allow-Origin', origen_aceptado)
+  }
   const { genre } = req.query
 
   if (genre) {
@@ -83,7 +92,13 @@ app.patch('/movies/:id', (req, res) => {
 
 //manejar ruta para eliminar un recurso
 app.delete('/movies/:id', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500')
+
+  const { origin } = req
+  const origen_aceptado = ORIGENES_ACEPTADOS.matches((e) => e === origin)
+  if (origen_aceptado) {
+    res.setHeader('Access-Control-Allow-Origin', origen_aceptado)
+  }
+
   res.setHeader('Access-Control-Allow-Methods', 'DELETE')
   const { id } = req.params
 
@@ -98,7 +113,13 @@ app.delete('/movies/:id', (req, res) => {
 
 
 app.options('/movies/:id', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500')
+
+  const { origin } = req
+  const origen_aceptado = ORIGENES_ACEPTADOS.matches((e) => e === origin)
+  if (origen_aceptado) {
+    res.setHeader('Access-Control-Allow-Origin', origen_aceptado)
+  }
+
   res.setHeader('Access-Control-Allow-Methods', 'DELETE')
   res.send()
 })
