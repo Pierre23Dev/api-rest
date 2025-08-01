@@ -2,8 +2,8 @@ const express = require('express')
 const app = express()
 const z = require('zod')
 
-const movies = require('./movies.json')
-const { validateInfoOfMovie, validatePartialMovie } = require('./schemas')
+const movies = require('../movies.json')
+const { validateInfoOfMovie, validatePartialMovie } = require('../schemas')
 
 app.disable('x-powered-by')
 app.use(express.json())
