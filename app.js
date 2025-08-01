@@ -20,6 +20,11 @@ const ORIGENES_ACEPTADOS = [
   'http://127.0.0.1:5500'
 ]
 
+app.get('/', (req, res) => {
+  res.send('¡Bienvenido a la API de películas! Usa /movies para comenzar.')
+})
+
+
 app.get('/movies', (req, res) => {
   const { origin } = req
   const origen_aceptado = ORIGENES_ACEPTADOS.some((e) => e === origin)
@@ -132,7 +137,7 @@ app.options('/movies/:id', (req, res) => {
 
 // manejo de rutas no especificadas
 app.use('*', (req, res) => {
-  res.status(408).json({ error: 'ruta no encontrada' })
+  res.status(404).json({ error: 'ruta no encontrada' })
 })
 
 app.listen(PORT, () => {
