@@ -22,7 +22,7 @@ const ORIGENES_ACEPTADOS = [
 
 app.get('/movies', (req, res) => {
   const { origin } = req
-  const origen_aceptado = ORIGENES_ACEPTADOS.matches((e) => e === origin)
+  const origen_aceptado = ORIGENES_ACEPTADOS.some((e) => e === origin)
   if (origen_aceptado) {
     res.setHeader('Access-Control-Allow-Origin', origen_aceptado)
   }
@@ -99,7 +99,7 @@ app.patch('/movies/:id', (req, res) => {
 app.delete('/movies/:id', (req, res) => {
 
   const { origin } = req
-  const origen_aceptado = ORIGENES_ACEPTADOS.matches((e) => e === origin)
+  const origen_aceptado = ORIGENES_ACEPTADOS.some((e) => e === origin)
   if (origen_aceptado) {
     res.setHeader('Access-Control-Allow-Origin', origen_aceptado)
   }
@@ -120,7 +120,7 @@ app.delete('/movies/:id', (req, res) => {
 app.options('/movies/:id', (req, res) => {
 
   const { origin } = req
-  const origen_aceptado = ORIGENES_ACEPTADOS.matches((e) => e === origin)
+  const origen_aceptado = ORIGENES_ACEPTADOS.some((e) => e === origin)
   if (origen_aceptado) {
     res.setHeader('Access-Control-Allow-Origin', origen_aceptado)
   }
